@@ -1,1 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Nilgiris EcoTrack</title>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+<body>
 
+  <!-- NAVBAR -->
+  <header>
+    <div class="header-content">
+      <h1>Nilgiris EcoTrack</h1>
+      <p class="tagline">Protecting the Blue Mountains, one visit at a time</p>
+    </div>
+  </header>
+
+  <!-- TAB NAVIGATION -->
+  <nav class="tab-nav">
+    <button class="tab-btn active" onclick="switchTab('home')">Home</button>
+    <button class="tab-btn" onclick="switchTab('how')">How it Works</button>
+    <button class="tab-btn" onclick="switchTab('benefits')">Benefits</button>
+    <button class="tab-btn" onclick="switchTab('ecopass')">Eco-Pass</button>
+    <button class="tab-btn" onclick="switchTab('rewards')">Rewards</button>
+    <button class="tab-btn" onclick="switchTab('heatmap')">Tourism Map</button>
+  </nav>
+
+  <!-- PAGE CONTAINER -->
+  <div class="page-container">
+
+    <!-- HOME PAGE -->
+    <div id="home" class="page active">
+      <!-- HERO SECTION -->
+      <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <h2>The hills remember<br>every footprint</h2>
+          <p>A visitor tracking system designed to preserve the fragile ecosystem<br>of the Nilgiri Biosphere Reserve.</p>
+          <button class="cta-primary" onclick="switchTab('ecopass')">Register Your Visit</button>
+        </div>
+      </section>
+
+      <!-- ABOUT -->
+      <section class="section-narrative">
+        <div class="content-narrow">
+          <span class="section-label">The Challenge</span>
+          <h2>What's at stake</h2>
+          <p class="lead">
+            Over 3 million tourists visit the Nilgiris each year. Without proper tracking,
+            waste accumulates in tea estates, shola forests, and grasslands—threatening
+            endemic species and water sources that local communities depend on.
+          </p>
+          <p>
+            EcoTrack offers a simple way to monitor visitor impact, encourage responsible
+            behavior, and ensure this UNESCO Biosphere Reserve remains intact for future generations.
+          </p>
+        </div>
+      </section>
+    </div>
+
+    <!-- HOW IT WORKS PAGE -->
+    <div id="how" class="page">
+      <section class="section-narrative">
+        <div class="content-narrow">
+          <span class="section-label">System Overview</span>
+          <h2>How it works</h2>
+          
+          <div class="process-step">
+            <span class="step-number">01</span>
+            <div class="step-content">
+              <h3>Register before you arrive</h3>
+              <p>Provide basic details and your travel dates. You'll receive a digital pass via SMS—no app installation required.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <span class="step-number">02</span>
+            <div class="step-content">
+              <h3>Entry verification at checkpoints</h3>
+              <p>Show your QR code at entry points in Ooty, Coonoor, Kotagiri, or Masinagudi. Takes less than 30 seconds.</p>
+            </div>
+          </div>
+          
+          <div class="process-step">
+            <span class="step-number">03</span>
+            <div class="step-content">
+              <h3>Earn credits for responsible disposal</h3>
+              <p>Use marked waste bins across tourist sites. Scan your pass to log deposits and earn points redeemable at local shops and transport.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- BENEFITS PAGE -->
+    <div id="benefits" class="page">
+      <section class="section-narrative">
+        <div class="content-narrow">
+          <span class="section-label">Impact</span>
+          <h2>Why this matters</h2>
+          
+          <div class="benefit-list">
+            <div class="benefit-item">
+              <h3>Cleaner sites, healthier ecosystems</h3>
+              <p>Waste tracking helps identify problem areas and reduce littering at popular viewpoints, trails, and waterfalls.</p>
+            </div>
+            
+            <div class="benefit-item">
+              <h3>Accountability without surveillance</h3>
+              <p>The system tracks visits, not individuals. Data stays anonymous and is used solely for environmental planning.</p>
+            </div>
+            
+            <div class="benefit-item">
+              <h3>Support for local businesses</h3>
+              <p>Reward points can be redeemed at registered tea shops, homestays, and transport services—keeping revenue in the community.</p>
+            </div>
+            
+            <div class="benefit-item">
+              <h3>Minimal infrastructure, maximum reach</h3>
+              <p>Works with existing mobile networks. No need for expensive hardware installations or complex systems.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- ECO-PASS REGISTRATION PAGE -->
+    <div id="ecopass" class="page">
+      <section class="section-form">
+        <div class="content-narrow">
+          <span class="section-label">Registration</span>
+          <h2>Get your Eco-Pass</h2>
+          <p class="form-intro">This takes about a minute. You'll receive your digital pass via SMS.</p>
+          
+          <form class="ecopass-form" onsubmit="register(event)">
+            <div class="form-group">
+              <label for="fullName">Full Name</label>
+              <input type="text" id="fullName" placeholder="As per government ID" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="vehicleNumber">Vehicle Number</label>
+              <input type="text" id="vehicleNumber" placeholder="TN 00 AA 0000" required>
+            </div>
+            
+            <div class="form-group">
+              <label for="mobileNumber">Mobile Number</label>
+              <input type="tel" id="mobileNumber" placeholder="+91 00000 00000" required>
+            </div>
+            
+            <div class="form-row">
+              <div class="form-group">
+                <label for="fromDate">Visit Start Date</label>
+                <input type="date" id="fromDate" required>
+              </div>
+              
+              <div class="form-group">
+                <label for="toDate">Visit End Date</label>
+                <input type="date" id="toDate" required>
+              </div>
+            </div>
+            
+            <button type="submit" class="btn-submit">Generate Pass</button>
+            <p class="form-note">By registering, you agree to follow Leave No Trace principles during your visit.</p>
+          </form>
+          
+          <p id="message" class="form-message"></p>
+        </div>
+      </section>
+    </div>
+
+    <!-- REWARDS PAGE -->
+    <div id="rewards" class="page">
+      <section class="section-narrative">
+        <div class="content-narrow">
+          <span class="section-label">Incentives</span>
+          <h2>Waste credits</h2>
+          
+          <p class="lead">
+            When you dispose of waste properly at marked bins, scan your Eco-Pass to earn credits.
+            Points are weighted by type and volume—plastic bottles earn more than organic waste.
+          </p>
+          
+          <div class="points-display">
+            <span class="points-label">Your balance</span>
+            <div class="points-value" id="points">120</div>
+            <span class="points-unit">credits</span>
+          </div>
+          
+          <div class="redemption-info">
+            <h3>How to use credits</h3>
+            <ul class="redemption-list">
+              <li>10 credits = ₹50 discount at participating tea shops</li>
+              <li>25 credits = Free TNSTC bus pass for one day</li>
+              <li>50 credits = ₹250 off homestay bookings</li>
+            </ul>
+            
+            <button class="btn-secondary" onclick="redeemPoints()">Redeem Now</button>
+            <p id="redeemStatus" class="status-message"></p>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- HEATMAP PAGE -->
+    <div id="heatmap" class="page">
+      <section class="section-map">
+        <div class="map-header">
+          <span class="section-label">Visitor Data</span>
+          <h2>Where people go</h2>
+          <p>Aggregated visitor patterns across the Nilgiris plateau. Data is anonymized and updated monthly.</p>
+        </div>
+        
+        <div class="map-controls">
+          <button id="checklistBtn" class="map-toggle active" onclick="switchDataset('checklist')">Tourist Density</button>
+          <button id="speciesBtn" class="map-toggle" onclick="switchDataset('species')">Biodiversity Activity</button>
+        </div>
+        
+        <div id="heatmapContainer" class="heatmap-container"></div>
+        
+        <div class="map-legend">
+          <p class="legend-note">Intensity shown from low (blue) to high (red). Hover over areas for location details.</p>
+        </div>
+      </section>
+    </div>
+
+  </div>
+
+  <footer>
+    <p>Nilgiris EcoTrack · A pilot initiative in partnership with the Tamil Nadu Forest Department</p>
+    <p class="footer-small">Data privacy policy · Contact · Feedback</p>
+  </footer>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <!-- Leaflet.heat plugin -->
+  <script src="https://unpkg.com/leaflet.heat@0.2.0/dist/leaflet-heat.js"></script>
+  <!-- Custom script -->
+  <script src="script.js"></script>
+
+</body>
+</html>
